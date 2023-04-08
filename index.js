@@ -47,11 +47,10 @@ async function backup() {
             dumpToFile: backupFilename
         });
 
-        // Upload the backup file to S3
         const params = {
             Bucket: AWS_S3_BUCKET,
             Key: backupFilename,
-            Body: backupFilename
+            Body: fs.readFileSync(backupFilename)
         };
 
         await s3.upload(params).promise();
